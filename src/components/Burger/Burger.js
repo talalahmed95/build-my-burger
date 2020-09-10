@@ -9,6 +9,10 @@ const burger = (props) => {
 		});
 	});
 
+	// Object.keys converts keys into array, and map on each element of array. 
+	// props.ingredients[ingKey] is the value like 1,2 and [...Array] converts it into array of values [1,1,2,2]
+	// _ is empty length, i is index i.e 0 and 1
+
 	return (
 		<div className={classes.Burger}>
 			<BurgerIngredient type="bread-top" />
