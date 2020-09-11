@@ -37,12 +37,12 @@
 }
 
 .BuildControl .Less {  
-    background-color: #D39952;
+    background-color: #dc3545;
     color: white;
 }
 
 .BuildControl .More {
-    background-color: #8F5E1E;
+    background-color: #28a745;
     color: white;
 }
 
