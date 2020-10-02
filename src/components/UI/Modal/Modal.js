@@ -3,22 +3,10 @@ import classes from './Modal.module.css';
 
 const modal = (props) => {
 
-	let modalState = '';
-	const showModal = classes.Show
-	const hideModal = classes.Hide
-
-	if (props.show === true) {
-		modalState = {showModal};
-	}
-	else {
-		modalState = {};
-	}
+	const modalState = props.show ? classes.Show : classes.Hide;
 
 	return (
-		<div className={classes.Modal} style={{
-			transform: props.show ? 'translateY(0)' : 'translateY(-1vh)',
-			opacity: props.show ? '1' : '0'
-		}}>
+		<div className={classes.Modal + ' ' + modalState}>
 			{props.children}
 		</div>
 	);

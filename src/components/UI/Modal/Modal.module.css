@@ -25,6 +25,6 @@
 }
 
 .Hide {
-	transform: translateY(-1);
+	transform: translateY(-1vh);
 	opacity: 0;
 }
