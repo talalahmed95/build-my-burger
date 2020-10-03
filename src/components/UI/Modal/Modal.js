@@ -1,14 +1,18 @@
 import React from 'react';
 import classes from './Modal.module.css';
+import Backdrop from '../Backdrop/Backdrop';
 
 const modal = (props) => {
 
-	const modalState = props.show ? classes.Show : classes.Hide;
+	let modalState = props.show ? classes.Show : classes.Hide;
 
 	return (
-		<div className={classes.Modal + ' ' + modalState}>
-			{props.children}
-		</div>
+		<>
+			<Backdrop show={props.show} />
+			<div className={classes.Modal + ' ' + modalState}>
+				{props.children}
+			</div>
+		</>
 	);
 }
 
