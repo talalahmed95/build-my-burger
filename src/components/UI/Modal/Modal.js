@@ -4,8 +4,6 @@ import Backdrop from '../Backdrop/Backdrop';
 
 const Modal = (props) => {
 
-	console.log('Modal updated');
-
 	let modalState = props.show ? classes.Show : classes.Hide;
 
 	return (
