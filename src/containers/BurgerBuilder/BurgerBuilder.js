@@ -4,6 +4,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import xhrConfig from '../../xhrConfig';
 
 const INGREDIENT_PRICES = {
 	salad: 10,
@@ -72,7 +73,22 @@ class BurgerBuilder extends Component {
 	}
 
 	purchasingContinueHandler = () => {
-		alert("You have purchased!");
+		const order = {
+			ingredients: this.state.ingredients,
+			price: this.state.totalPrice,
+			customer: {
+				name: 'Donald Duck',
+				address: {
+					street: 'Baker Street',
+					city: 'Istanbul',
+					country: 'Turkey'
+				},
+				email: 'donalduck@cn.com'
+			},
+			delivery: 'fastest'
+		}
+
+		xhrConfig(order);
 	}
 
 	render () {
