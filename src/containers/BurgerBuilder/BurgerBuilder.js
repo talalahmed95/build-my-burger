@@ -4,7 +4,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import xhrConfig from '../../xhrConfig';
+import fetchConfig from '../../fetchConfig';
 
 const INGREDIENT_PRICES = {
 	salad: 10,
@@ -88,7 +88,7 @@ class BurgerBuilder extends Component {
 			delivery: 'fastest'
 		}
 
-		xhrConfig(order);
+		fetchConfig(order);
 	}
 
 	render () {
