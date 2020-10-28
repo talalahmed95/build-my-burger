@@ -4,7 +4,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import fetchConfig from '../../fetchConfig';
+import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 
 const INGREDIENT_PRICES = {
 	salad: 10,
@@ -23,7 +23,8 @@ class BurgerBuilder extends Component {
 		},
 		totalPrice: 5,
 		purchasable: false,
-		purchasing: false
+		purchasing: false,
+		loading: false
 	}
 
 	addIngredientHandler = (type) => {
@@ -73,6 +74,8 @@ class BurgerBuilder extends Component {
 	}
 
 	purchasingContinueHandler = () => {
+		this.setState({ loading: true });
+
 		const order = {
 			ingredients: this.state.ingredients,
 			price: this.state.totalPrice,
@@ -88,7 +91,19 @@ class BurgerBuilder extends Component {
 			delivery: 'fastest'
 		}
 
-		fetchConfig(order);
+		const requestOptions = {
+		    method: 'POST',
+		    headers: { 'Content-Type': 'application/json' },
+		    body: JSON.stringify(order)
+		};
+
+		fetch('https://buildmyburg3r.firebaseio.com/orders.json', requestOptions)
+			.then(response => {
+				this.setState({ loading: false, purchasing: false });
+			})
+			.catch((error) => {
+			  	this.setState({ loading: false, purchasing: false });
+			});
 	}
 
 	render () {
@@ -96,13 +111,20 @@ class BurgerBuilder extends Component {
 		for (let key in disabledInfo) {
 			disabledInfo[key] = disabledInfo[key] <= 0;
 		}
-		return (
-			<Aux>
-				<Modal show={this.state.purchasing}>
-					<OrderSummary ingredients={this.state.ingredients} 
+
+		let orderSummary = <OrderSummary ingredients={this.state.ingredients} 
 						continuePurchasing={this.purchasingContinueHandler}
 						cancelPurchasing={this.purchasingCancelHandler}
-						price={this.state.totalPrice} />
+						price={this.state.totalPrice} />;
+
+		if (this.state.loading) {
+			orderSummary = <LoadingSpinner/>;
+		}
+
+		return (
+			<Aux>
+				<Modal show={this.state.purchasing} loading={this.state.loading}>
+					{orderSummary}
 				</Modal>
 				<Burger ingredients={this.state.ingredients} />
 				<BuildControls 

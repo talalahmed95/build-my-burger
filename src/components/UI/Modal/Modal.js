@@ -1,23 +1,27 @@
-import React, {Fragment, memo} from 'react';
+import React, {Component, Fragment} from 'react';
 import classes from './Modal.module.css';
 import Backdrop from '../Backdrop/Backdrop';
 
-const Modal = (props) => {
+class Modal extends Component {
 
-	let modalState = props.show ? classes.Show : classes.Hide;
+	shouldComponentUpdate(nextProps) {
+		return nextProps.show !== this.props.show || nextProps.loading !== this.props.loading;
+	}
 
-	return (
-		<Fragment>
-			<Backdrop show={props.show} />
-			<div className={classes.Modal + ' ' + modalState}>
-				{props.children}
-			</div>
-		</Fragment>
-	);
+	render() {
+		console.log('Modal runs');
+
+		let modalState = this.props.show ? classes.Show : classes.Hide;
+
+		return (
+			<Fragment>
+				<Backdrop show={this.props.show} />
+				<div className={classes.Modal + ' ' + modalState}>
+					{this.props.children}
+				</div>
+			</Fragment>
+		);
+	}
 }
 
-const shouldUpdate = (prevProps, nextProps) => {
-	return prevProps.show === nextProps.show;
-}
-
-export default memo(Modal, shouldUpdate);
+export default Modal;
