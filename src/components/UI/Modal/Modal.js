@@ -9,10 +9,7 @@ class Modal extends Component {
 	}
 
 	render() {
-		console.log('Modal runs');
-
 		let modalState = this.props.show ? classes.Show : classes.Hide;
-
 		return (
 			<Fragment>
 				<Backdrop show={this.props.show} />
