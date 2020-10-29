@@ -21,3 +21,5 @@ const xhrConfig = (data) => {
 }
 
 export default xhrConfig;
+
+// new code added in xhr

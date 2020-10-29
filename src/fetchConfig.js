@@ -18,3 +18,5 @@ const fetchConfig = (data) => {
 }
 
 export default fetchConfig;
+
+// new code added in fetch
