@@ -5,6 +5,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
+import backendUrl from '../../backendUrl';
 
 const INGREDIENT_PRICES = {
 	salad: 10,
@@ -97,7 +98,7 @@ class BurgerBuilder extends Component {
 		    body: JSON.stringify(order)
 		};
 
-		fetch('https://buildmyburg3r.firebaseio.com/orders.json', requestOptions)
+		fetch(backendUrl, requestOptions)
 			.then(response => {
 				this.setState({ loading: false, purchasing: false });
 			})

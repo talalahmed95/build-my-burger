@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# custom
+src/backendUrl.js
+src/fetchConfig.js
+src/xhrConfig.js
