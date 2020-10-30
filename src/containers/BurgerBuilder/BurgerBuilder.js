@@ -6,6 +6,8 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 import backendUrl from '../../backendUrl';
+import Button from '../../components/UI/Button/Button';
+import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
 
 const INGREDIENT_PRICES = {
 	salad: 10,
@@ -25,7 +27,8 @@ class BurgerBuilder extends Component {
 		totalPrice: 5,
 		purchasable: false,
 		purchasing: false,
-		loading: false
+		loading: false,
+		errorMsg: null
 	}
 
 	addIngredientHandler = (type) => {
@@ -103,8 +106,12 @@ class BurgerBuilder extends Component {
 				this.setState({ loading: false, purchasing: false });
 			})
 			.catch((error) => {
-			  	this.setState({ loading: false, purchasing: false });
+			  	this.setState({ loading: false, purchasing: true, errorMsg: error });
 			});
+	}
+
+	errorCloseHandler = () => {
+		this.setState({ purchasing: false, errorMsg: null });
 	}
 
 	render () {
@@ -122,9 +129,13 @@ class BurgerBuilder extends Component {
 			orderSummary = <LoadingSpinner/>;
 		}
 
+		else if (this.state.errorMsg !== null) {
+			orderSummary = <ErrorMessage error={this.state.errorMsg} closeModal={this.errorCloseHandler} />;
+		}
+
 		return (
 			<Aux>
-				<Modal show={this.state.purchasing} loading={this.state.loading}>
+				<Modal show={this.state.purchasing} loading={this.state.loading}> 
 					{orderSummary}
 				</Modal>
 				<Burger ingredients={this.state.ingredients} />
