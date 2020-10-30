@@ -135,7 +135,7 @@ class BurgerBuilder extends Component {
 
 		let burger = <LoadingSpinner />;
 		if (this.state.errorMsg !== null) {
-			burger = <ErrorMessage error={this.state.errorMsg} showButton={false} />;
+			burger = <p>Oops! An error occured! ({String(this.state.errorMsg)})</p>;
 		}
 
 		if (this.state.ingredients) {
@@ -163,9 +163,7 @@ class BurgerBuilder extends Component {
 		}
 
 		else if (this.state.errorMsg !== null) {
-			orderSummary = <ErrorMessage error={this.state.errorMsg} 
-								showButton={true} 
-								closeModal={this.errorCloseHandler} />;
+			orderSummary = <ErrorMessage error={this.state.errorMsg} closeModal={this.errorCloseHandler} />;
 		}
 
 		return (
